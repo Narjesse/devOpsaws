@@ -20,6 +20,7 @@ spec:
       containers:
         - name: employee-api
           image: "narjess6/employees-api:latest"
+          imagePullPolicy: Always
           ports:
           -  containerPort: 8080
 
@@ -61,6 +62,7 @@ spec:
       containers:
       - name: employee-cli
         image: "narjess6/employees-client:latest"
+        imagePullPolicy: Always
         ports:
         - containerPort: 8089
 
