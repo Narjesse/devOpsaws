@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
       - name: employee-cli
-        image: "narjess6/employees-client:latest"
+        image: "narjess6/employees-client:9"
         imagePullPolicy: Always
         ports:
         - containerPort: 8089
