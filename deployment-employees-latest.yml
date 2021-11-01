@@ -52,6 +52,8 @@ spec:
       tier: employee-cli
       track: stable
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -61,7 +63,7 @@ spec:
     spec:
       containers:
       - name: employee-cli
-        image: "narjess6/employees-client:9"
+        image: "narjess6/employees-client:latest"
         imagePullPolicy: Always
         ports:
         - containerPort: 8089
