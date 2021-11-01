@@ -1,0 +1,42 @@
+version: '3.5' # optional
+services:
+  jenkins:
+    image: jenkinsci/blueocean # the image that will be used to create the container
+    user: root
+    container_name: jenkins01
+    volumes: # map these volumes between local machine and docker container
+      - ./jenkins-data:/var/jenkins_home # le jenkins-home contenant des infos comme /var/jenkins_home/secrets/initialAdminPassword sera mappé dans le dossier sous /root/devops2021/jenkins-data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/home
+    ports:
+      - "8086:8080" # open port 8085 on host machine and 8080 on docker machine
+    networks:
+      - devopsnet # the network that will be created for my service
+
+  sonarqube:
+    image: sonarqube:alpine
+    container_name: sonarqube01
+    volumes:
+      - ./sonarqube/conf:/opt/sonarqube/conf
+      - ./sonarqube/data:/opt/sonarqube/data
+      - ./sonarqube/extensions:/opt/sonarqube/extensions
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    networks:
+      - devopsnet
+  nexus:
+    image: sonatype/nexus3
+    networks:
+      - devopsnet
+    volumes:
+      - ./nexus-data:/nexus-data
+    container_name: nexus01
+    ports:
+      - "1081:8081"
+    user: root
+
+networks:
+  devopsnet:
+    external:
+      name: devopsnet
