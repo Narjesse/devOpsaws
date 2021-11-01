@@ -35,7 +35,7 @@ pipeline {
 				  git url:'https://github.com/Narjesse/devOpsaws.git', branch:'main'
                     sh 'aws eks --region us-east-2 update-kubeconfig --name my-eks'   
                     sh 'kubectl create namespace preprod --dry-run -o yaml | kubectl apply -f - '
-                    sh 'kubectl delete -f deployment-CLI-API.yml --namespace=preprod'
+                    sh 'kubectl delete -f deployment-CLI-POD.yml --namespace=preprod'
                     sh 'kubectl apply -f deployment-CLI-All.yml --namespace=preprod'
                 }
             }
@@ -48,7 +48,7 @@ pipeline {
 				  git url:'https://github.com/Narjesse/devOpsaws.git', branch:'main'
                     sh 'aws eks --region us-east-2 update-kubeconfig --name my-eks'   
                     sh 'kubectl create namespace prod --dry-run -o yaml | kubectl apply -f - '
-                    sh 'kubectl delete -f deployment-CLI-API.yml --namespace=prod'
+                    sh 'kubectl delete -f deployment-CLI-POD.yml --namespace=prod'
                     sh 'kubectl apply -f deployment-CLI-All.yml --namespace=prod'
                 }
             }
