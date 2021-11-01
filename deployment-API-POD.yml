@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employeeapi
+spec:
+  selector:
+    matchLabels:
+      app: employee-api
+      tier: api
+      track: stable
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: employee-api
+        tier: api
+        track: stable
+    spec:
+      containers:
+        - name: employee-api
+          image: "narjess6/employees-api:latest"
+          imagePullPolicy: Always
+          ports:
+          -  containerPort: 8080
