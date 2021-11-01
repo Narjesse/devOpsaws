@@ -1,0 +1,43 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-cli
+spec:
+  selector:
+    matchLabels:
+      app: employeecli
+      tier: employee-cli
+      track: stable
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: employeecli
+        tier: employee-cli
+        track: stable
+    spec:
+      containers:
+      - name: employee-cli
+        image: "narjess6/employees-client:latest"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8089
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-cli
+spec:
+  selector:
+    app: employeecli
+    tier: employee-cli
+  ports:
+  - protocol: "TCP"
+    port: 8089
+    targetPort: 8089
+  type: LoadBalancer
